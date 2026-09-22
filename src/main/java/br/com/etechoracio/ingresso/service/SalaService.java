@@ -7,6 +7,7 @@ import br.com.etechoracio.ingresso.repository.SalaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SalaService {
@@ -22,6 +23,10 @@ public class SalaService {
     public List<SalaResponseDTO> listarSalasAtivas(){
         List<Sala> salas = salaRepository.findAllByDataExclusaoIsNull();
         return salaMapper.toResponseDTOList(salas);
+    }
+
+    public Optional<SalaResponseDTO> buscarSalaAtivaPorId(Long id){
+        return salaRepository.findAllByIdAndDataExclusaoIsNull(id).map(salaMapper::toResponseDTO);
     }
 
 }
